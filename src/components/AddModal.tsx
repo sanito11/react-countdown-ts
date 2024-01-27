@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
 
 interface AddModalProps {
     isOpen: boolean
@@ -9,7 +9,7 @@ const AddModal: React.FC<AddModalProps> = (props) => {
 
     if (!isOpen) return null
 
-    const handleSubmit = (e: Event) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
         console.log('h')
     }
