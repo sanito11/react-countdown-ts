@@ -10,7 +10,7 @@ const CountdownCard: React.FC<CountdownCardProps> = (props) => {
 
     return (
         <div className='countdown-card'>
-            <span>{timeValue}</span>
+            <span>{timeValue || 0}</span>
             <p>{timeUnit}</p>
         </div>
     )

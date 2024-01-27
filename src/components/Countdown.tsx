@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import CountdownCard from './CountdownCard'
 
 type DateObject = {
+    years: string,
     months: string,
     days: string,
     hours: string,
@@ -10,7 +11,9 @@ type DateObject = {
 }
 
 const Countdown = () => {
+
     const [countdownValue, setCountdownValue] = useState<DateObject>({
+        years: "",
         months: "",
         days: "",
         hours: "",
@@ -18,28 +21,31 @@ const Countdown = () => {
         seconds: ""
     })
 
-    const dueDate: Date | any = new Date('01-28-2024')
+    let dueDate: Date | any = new Date("12-04-2024")
 
     useEffect(() => {
 
         const timeInterval = setInterval(() => {
             const currentDate: Date | any = new Date()
 
-            const remainingTime: number = Math.floor((dueDate - currentDate) / 1000)
+            const remainingTime: number = (dueDate - currentDate)
 
-            const seconds: number = Math.floor(remainingTime % 60)
-            const minutes: number = Math.floor(remainingTime / 60 % 60)
-            const hours: number = Math.floor(remainingTime / 60 / 60 % 60)
-            const days: number = Math.floor(remainingTime / 60 / 60 / 60 % 24)
-            const months: number = Math.floor(remainingTime / 60 / 60 / 60 / 24 % 12)
+            if (remainingTime < 1) return clearInterval(timeInterval)
 
+            const remainingSeconds: number = Math.floor(remainingTime / 1000) % 60;
+            const remainingMinutes: number = Math.floor(remainingTime / 1000 / 60) % 60;
+            const remainingHours: number = Math.floor(remainingTime / 1000 / 60 / 60) % 24;
+            const remainingDays: number = Math.floor(remainingTime / 1000 / 60 / 60 / 24) % 30.5;
+            const remainingMonths: number = Math.floor(remainingTime / 1000 / 60 / 60 / 24 / 30.5) % 12;
+            const remainingYears: number = Math.floor(remainingTime / 1000 / 60 / 60 / 24 / 30.5 / 12);
 
             setCountdownValue({
-                months: months.toString(),
-                days: days.toString(),
-                hours: hours.toString(),
-                minutes: minutes.toString(),
-                seconds: seconds.toString()
+                years: remainingYears.toString(),
+                months: remainingMonths.toString(),
+                days: remainingDays.toString(),
+                hours: remainingHours.toString(),
+                minutes: remainingMinutes.toString(),
+                seconds: remainingSeconds.toString()
             })
         }, 1000)
 
@@ -50,6 +56,7 @@ const Countdown = () => {
 
     return (
         <>
+            <CountdownCard timeValue={countdownValue?.years} timeUnit="Years" />
             <CountdownCard timeValue={countdownValue?.months} timeUnit="Months" />
             <CountdownCard timeValue={countdownValue?.days} timeUnit="Days" />
             <CountdownCard timeValue={countdownValue?.hours} timeUnit="Hours" />
