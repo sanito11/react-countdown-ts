@@ -9,7 +9,7 @@ const AddModal: React.FC<AddModalProps> = (props) => {
 
     if (!isOpen) return null
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: Event) => {
         e.preventDefault()
         console.log('h')
     }
