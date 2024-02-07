@@ -21,7 +21,7 @@ const Countdown = () => {
         seconds: ""
     })
 
-    let dueDate: Date | any = new Date("12-04-2024")
+    let dueDate: Date | any = new Date("01-28-2024")
 
     useEffect(() => {
 
